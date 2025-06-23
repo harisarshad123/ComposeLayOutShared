@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -22,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -38,7 +38,6 @@ fun TransactionDetailsScreen() {
             .background(Color(0xFFF5F5F5))
             .padding(16.dp)
     ) {
-        // Gradient Header
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -74,7 +73,7 @@ fun TransactionDetailsScreen() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "July 22, 2025",
+                        text = "July 03, 2025",
                         fontSize = 16.sp,
                         color = Color.White.copy(alpha = 0.9f)
                     )
@@ -87,7 +86,6 @@ fun TransactionDetailsScreen() {
             }
         }
 
-        // Transaction Details Card
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -193,14 +191,12 @@ fun TransactionDetailsScreen() {
         }
 
 
-        // Footer Section
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 10.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // UBL Digital Logo placeholder
             Box(
                 modifier = Modifier
                     .width(100.dp)
