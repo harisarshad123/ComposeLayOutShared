@@ -4,35 +4,22 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.view.View
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.FileProvider
-import com.example.composelayoutshared.presentation.TransactionDetailsScreen
 import java.io.File
 import java.io.FileOutputStream
 
 @Composable
-fun HiddenReceiptView( onComplete: () -> Unit) {
+fun ShowScreenShotLayout(
+    composableContent: @Composable () -> Unit,
+    onComplete: () -> Unit
+) {
     val context = LocalContext.current
 
     // factory - The block creating the View to be composed.
@@ -42,8 +29,7 @@ fun HiddenReceiptView( onComplete: () -> Unit) {
                 // Set visibility to invisible to avoid flicker
                 visibility = View.INVISIBLE
                 setContent {
-//                    ReceiptLayout(data)
-                    TransactionDetailsScreen()
+                    composableContent()
                 }
 
                 post {
@@ -52,7 +38,7 @@ fun HiddenReceiptView( onComplete: () -> Unit) {
                     draw(canvas)
 
                     val file = File(context.cacheDir, "images").apply { mkdirs() }
-                    val imageFile = File(file, "receipt_${System.currentTimeMillis()}.png")
+                    val imageFile = File(file, "screenShot.png")
                     FileOutputStream(imageFile).use {
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
                     }
@@ -66,7 +52,7 @@ fun HiddenReceiptView( onComplete: () -> Unit) {
                     val intent = Intent(Intent.ACTION_SEND).apply {
                         type = "image/*"
                         putExtra(Intent.EXTRA_STREAM, uri)
-                        putExtra(Intent.EXTRA_TEXT, "UBL Receipt")
+                        putExtra(Intent.EXTRA_TEXT, "Share Receipt")
                         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     }
 
@@ -81,25 +67,3 @@ fun HiddenReceiptView( onComplete: () -> Unit) {
     )
 }
 
-@Composable
-fun ReceiptLayout(data: String) {
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        shape = RoundedCornerShape(16.dp),
-        color = Color(0xFFE3F2FD),
-        shadowElevation = 4.dp
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Text("UBL Digital Receipt", fontWeight = FontWeight.Bold, fontSize = 20.sp)
-            HorizontalDivider()
-            Text(data, fontSize = 16.sp)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text("Thank you for using UBL!", fontStyle = FontStyle.Italic)
-        }
-    }
-}

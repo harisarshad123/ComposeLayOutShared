@@ -19,12 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.composelayoutshared.utils.HiddenReceiptView
+import com.example.composelayoutshared.utils.ShowScreenShotLayout
 
 @Preview
 @Composable
 fun ShareScreen() {
-    var shouldRender by remember { mutableStateOf(false) }
+    var showReceipt by remember { mutableStateOf(false) }
+    var showUBLReceipt by remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -33,19 +35,37 @@ fun ShareScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Welcome to UBL Receipt Share Demo")
+        Text("Compose Layout Shared As ScreenShot Example")
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            shouldRender = true
+            showUBLReceipt = true
         }) {
-            Text("Share Receipt")
+            Text("Share UBL Receipt")
+        }
+
+        Button(onClick = {
+            showReceipt = true
+        }) {
+            Text("ShowReceipt")
         }
     }
 
-    if (shouldRender) {
-        HiddenReceiptView {
-            shouldRender = false
-        }
+    if (showUBLReceipt) {
+        ShowScreenShotLayout(
+            composableContent = { TransactionDetailsScreen() },
+            onComplete = {
+                showUBLReceipt = false
+            }
+        )
+    }
+
+    if (showReceipt) {
+        ShowScreenShotLayout(
+            composableContent = { ReceiptLayout() },
+            onComplete = {
+                showReceipt = false
+            }
+        )
     }
 }
