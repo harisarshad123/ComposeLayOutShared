@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -89,7 +90,6 @@ fun TransactionDetailsScreen() {
         // Transaction Details Card
         Card(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
         ) {
@@ -110,7 +110,7 @@ fun TransactionDetailsScreen() {
                 TransactionDetailRow(
                     label = "To",
                     value = "Muhammad Jawad",
-                    subtitle = "PK93MPBL9943177140127339"
+                    subtitle = "0346-6107814"
                 )
 
                 HorizontalDivider(
@@ -120,7 +120,7 @@ fun TransactionDetailsScreen() {
 
                 TransactionDetailRow(
                     label = "Received Date",
-                    value = "July 22, 2025"
+                    value = "July 03, 2025"
                 )
 
                 HorizontalDivider(
@@ -130,7 +130,7 @@ fun TransactionDetailsScreen() {
 
                 TransactionDetailRow(
                     label = "Transaction Date",
-                    value = "July 22, 2025"
+                    value = "July 03, 2025"
                 )
 
                 HorizontalDivider(
@@ -140,7 +140,7 @@ fun TransactionDetailsScreen() {
 
                 TransactionDetailRow(
                     label = "Expiry Date",
-                    value = "July 25, 2025"
+                    value = "July 05, 2025"
                 )
 
                 HorizontalDivider(
@@ -192,13 +192,12 @@ fun TransactionDetailsScreen() {
             }
         }
 
-        Spacer(modifier = Modifier.weight(1f))
 
         // Footer Section
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 30.dp),
+                .padding(horizontal = 16.dp, vertical = 10.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // UBL Digital Logo placeholder
@@ -266,8 +265,7 @@ fun TransactionDetailRow(
                 text = label,
                 fontSize = 16.sp,
                 color = Color.Gray,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.weight(0.3f)
+                fontWeight = FontWeight.Medium
             )
 
             Column(
